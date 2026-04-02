@@ -27,7 +27,7 @@
 
   <dependencies>
 
-    <!-- ── 1. Selenium WebDriver ──────────────────────────────
+    <!--  1. Selenium WebDriver
              Motor principal que controla el navegador.
              selenium-java incluye soporte para Chrome, Firefox, Edge. -->
     <dependency>
@@ -36,7 +36,7 @@
       <version>${selenium.version}</version>
     </dependency>
 
-    <!-- ── 2. WebDriverManager ───────────────────────────────
+    <!-- 2. WebDriverManager
          Descarga y configura automáticamente ChromeDriver/GeckoDriver.
          Sin esto tendrías que gestionar el driver manualmente. -->
     <dependency>
@@ -45,7 +45,7 @@
       <version>${webdrivermanager.version}</version>
     </dependency>
 
-    <!-- ── 3. Cucumber Java ──────────────────────────────────
+    <!-- 3. Cucumber Java
          Interpreta los archivos .feature escritos en Gherkin
          y los conecta con tus Step Definitions en Java. -->
     <dependency>
@@ -54,7 +54,7 @@
       <version>${cucumber.version}</version>
     </dependency>
 
-    <!-- ── 4. Cucumber JUnit 5 ───────────────────────────────
+    <!-- 4. Cucumber JUnit 5
          Integración de Cucumber con JUnit 5 para ejecutar
          los escenarios como pruebas estándar de Maven. -->
     <dependency>
@@ -64,7 +64,7 @@
       <scope>test</scope>
     </dependency>
 
-    <!-- ── 5. JUnit 5 Platform ───────────────────────────────
+    <!-- 5. JUnit 5 Platform
          Motor de ejecución de pruebas moderno de Java.
          Reemplaza el antiguo JUnit 4. -->
     <dependency>
