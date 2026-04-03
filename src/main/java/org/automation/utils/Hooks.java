@@ -6,7 +6,7 @@ import io.cucumber.java.Scenario;
 
 public class Hooks {
     // @Before se ejecuta antes de cada escenario Cucumber.
-    //    Aquí inicializamos el navegador para que esté listo.
+    // Aquí inicializamos el navegador para que esté listo.
     @Before
     public void setUp(Scenario scenario) {
         System.out.println("Iniciando escenario: " + scenario.getName());
@@ -14,7 +14,7 @@ public class Hooks {
     }
 
     // @After se ejecuta después de cada escenario, pase o falle.
-    //    Si el escenario falló, toma una captura de pantalla automáticamente.
+    // Si el escenario falló, toma una captura de pantalla automáticamente.
     @After
     public void tearDown(Scenario scenario) {
         if (scenario.isFailed()) {

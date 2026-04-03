@@ -7,14 +7,14 @@ import org.openqa.selenium.chrome.ChromeOptions;
 
 public class DriverManager {
     // ThreadLocal garantiza un driver independiente por hilo.
-    //    Esto es clave si en el futuro ejecutas pruebas en paralelo.
+    // Esto es clave si en el futuro ejecutas pruebas en paralelo.
     private static ThreadLocal<WebDriver> driver = new ThreadLocal<>();
 
     // Constructor privado — nadie puede instanciar esta clase directamente.
     private DriverManager() {}
 
     // Devuelve el driver del hilo actual.
-    //    Si no existe, lanza un error claro en lugar de un NullPointer.
+    // Si no existe, lanza un error claro en lugar de un NullPointer.
     public static WebDriver getDriver() {
         if (driver.get() == null) {
             throw new IllegalStateException(

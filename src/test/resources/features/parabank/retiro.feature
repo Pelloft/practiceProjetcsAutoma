@@ -1,4 +1,4 @@
-# language: es
+
 @parabank @retiro @transacciones
 Feature: Retiro de fondos en ParaBank
 Como usuario autenticado

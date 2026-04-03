@@ -1,4 +1,4 @@
-# language: es
+
 @parabank @login
 Feature: Login de usuario en ParaBank
 Como usuario registrado

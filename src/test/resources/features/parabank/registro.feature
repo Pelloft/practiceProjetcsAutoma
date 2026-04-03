@@ -1,4 +1,4 @@
-# language: es
+
 @parabank @registro
 Feature: Registro de usuario en ParaBank
 Como visitante del sitio

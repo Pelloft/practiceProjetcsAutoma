@@ -22,7 +22,7 @@
     <selenium.version>4.18.1</selenium.version>
     <cucumber.version>7.15.0</cucumber.version>
     <junit.version>5.10.2</junit.version>
-    <webdrivermanager.version>5.7.0</webdrivermanager.version>
+    <webdrivermanager.version>6.1.0</webdrivermanager.version>
   </properties>
 
   <dependencies>

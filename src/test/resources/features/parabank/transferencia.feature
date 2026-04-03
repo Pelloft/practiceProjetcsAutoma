@@ -1,4 +1,4 @@
-# language: es
+
 @parabank @transferencia @transacciones
 Feature: Transferencia de dinero entre cuentas en ParaBank
 Como usuario autenticado
