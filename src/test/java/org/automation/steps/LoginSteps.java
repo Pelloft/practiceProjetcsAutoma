@@ -1,7 +1,6 @@
 package org.automation.steps;
 
 import io.cucumber.java.en.And;
-import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import org.automation.pages.LoginPage;
@@ -9,76 +8,58 @@ import org.junit.jupiter.api.Assertions;
 
 public class LoginSteps {
 
-    /*La página se instancia aquí, no en el constructor.
-      Cucumber crea esta clase por escenario, así el driver
-      ya está listo cuando se llama el primer step.*/
-    private LoginPage loginPage;
+    private final CommonSteps commonSteps;
 
-    @Given("el usuario está en la página de inicio de ParaBank")
-    public void elUsuarioEstaEnLaPaginaDeInicio() {
-        loginPage = new LoginPage();
+    public LoginSteps() {
+        this(new CommonSteps());
+    }
+
+    public LoginSteps(CommonSteps commonSteps) {
+        this.commonSteps = commonSteps;
     }
 
     @When("el usuario ingresa el username {string} y password {string}")
     public void elUsuarioIngresaCredenciales(String username, String password) {
-        loginPage.ingresarUsername(username);
-        loginPage.ingresarPassword(password);
+        commonSteps.getLoginPage().ingresarUsername(username);
+        commonSteps.getLoginPage().ingresarPassword(password);
     }
 
-    @And("hace click en el botón {string}")
-    public void haceClickEnElBoton(String boton) {
-        if (boton.equals("Log In")) {
-            loginPage.clickLogin();
-        }
+    @When("el usuario hace click en el botón {string} sin ingresar credenciales")
+    public void clickLoginSinCredenciales(String boton) {
+        commonSteps.getLoginPage().clickLogin();
     }
 
     @Then("el sistema redirige al dashboard del usuario")
     public void elSistemaRedirigeDashboard() {
-        String titulo = loginPage.obtenerTituloPagina();
-        Assertions.assertEquals("Accounts Overview", titulo,
-                "Se esperaba el dashboard pero se obtuvo: " + titulo);
+        String titulo = commonSteps.getLoginPage().obtenerTituloPagina();
+        Assertions.assertEquals(
+                "Accounts Overview",
+                titulo,
+                "Se esperaba el dashboard pero se obtuvo: " + titulo
+        );
     }
 
     @And("muestra el mensaje de bienvenida {string}")
     public void muestraMensajeBienvenida(String mensaje) {
         Assertions.assertTrue(
-                loginPage.obtenerTituloPagina().contains(mensaje) ||
-                        loginPage.logOutVisible(),
+                commonSteps.getLoginPage().logOutVisible(),
                 "El mensaje de bienvenida no fue encontrado"
         );
     }
 
     @Then("el sistema muestra el mensaje de error {string}")
     public void elSistemaMuestraMensajeError(String mensajeEsperado) {
-        String mensajeActual = loginPage.obtenerMensajeError();
+        String mensajeActual = commonSteps.getLoginPage().obtenerMensajeError();
         Assertions.assertTrue(
                 mensajeActual.contains(mensajeEsperado),
                 "Error esperado: '" + mensajeEsperado + "' | Obtenido: '" + mensajeActual + "'"
         );
     }
 
-    @When("el usuario hace click en el botón {string} sin ingresar credenciales")
-    public void clickLoginSinCredenciales(String boton) {
-        loginPage.clickLogin();
-    }
-
-    @Given("el usuario ha iniciado sesión con username {string} y password {string}")
-    public void elUsuarioHaIniciadoSesion(String username, String password) {
-        loginPage = new LoginPage();
-        loginPage.login(username, password);
-    }
-
-    @When("hace click en {string}")
-    public void haceClickEn(String elemento) {
-        if (elemento.equals("Log Out")) {
-            loginPage.clickLogOut();
-        }
-    }
-
     @Then("el sistema redirige a la página de inicio")
     public void elSistemaRedirigePaginaInicio() {
         Assertions.assertTrue(
-                loginPage.loginButtonVisible(),
+                commonSteps.getLoginPage().loginButtonVisible(),
                 "Se esperaba ver el botón Log In después del logout"
         );
     }
@@ -86,8 +67,20 @@ public class LoginSteps {
     @And("el botón {string} está visible nuevamente")
     public void elBotonEstaVisible(String boton) {
         Assertions.assertTrue(
-                loginPage.loginButtonVisible(),
+                commonSteps.getLoginPage().loginButtonVisible(),
                 "El botón '" + boton + "' no está visible"
         );
     }
+
+    /*@When("el usuario intenta acceder durante un error interno del servidor")
+    public void elUsuarioIntentaAccederDuranteError() {
+        // Simular un intento de acceso que resultará en error interno
+        // En un escenario real, esto podría ser:
+        // - Una URL que genera error en el servidor
+        // - O esperar a que el servidor tenga un error y luego recargar
+        loginPage = new LoginPage();
+        // Aquí se podría simular el error, por ejemplo:
+        // loginPage.navegarAURLQueGeneraError();
+        // O forzar un estado de error en el servidor si es controlable
+    } */
 }

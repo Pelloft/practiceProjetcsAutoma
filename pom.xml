@@ -54,6 +54,16 @@
       <version>${cucumber.version}</version>
     </dependency>
 
+    <!-- 3b. Cucumber Picocontainer
+         Contenedor de inyección de dependencias para Cucumber
+         Permite que los Steps compartan estado entre ellos. -->
+    <dependency>
+      <groupId>io.cucumber</groupId>
+      <artifactId>cucumber-picocontainer</artifactId>
+      <version>${cucumber.version}</version>
+      <scope>test</scope>
+    </dependency>
+
     <!-- 4. Cucumber JUnit 5
          Integración de Cucumber con JUnit 5 para ejecutar
          los escenarios como pruebas estándar de Maven. -->

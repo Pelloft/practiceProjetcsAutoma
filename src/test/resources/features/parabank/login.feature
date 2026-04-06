@@ -29,3 +29,8 @@ Given el usuario ha iniciado sesión con username "john" y password "demo"
 When hace click en "Log Out"
 Then el sistema redirige a la página de inicio
 And el botón "Log In" está visible nuevamente
+
+@error-handling
+Scenario: Manejo de error interno en el sistema
+When el usuario intenta acceder durante un error interno del servidor
+Then el sistema muestra el mensaje de error "An internal error has occurred and has been logged"
