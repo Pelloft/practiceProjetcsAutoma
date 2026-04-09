@@ -5,6 +5,9 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 
+import java.util.HashMap;
+import java.util.Map;
+
 public class DriverManager {
     // ThreadLocal garantiza un driver independiente por hilo.
     // Esto es clave si en el futuro ejecutas pruebas en paralelo.
@@ -33,6 +36,18 @@ public class DriverManager {
         options.addArguments("--start-maximized");        // Pantalla completa
         options.addArguments("--disable-notifications");  // Sin popups de notificaciones
         options.addArguments("--remote-allow-origins=*"); // Evita errores de CORS en Chrome
+        options.addArguments("--no-default-browser-check");
+        options.addArguments("--no-first-run");
+
+        options.addArguments("--disable-save-password-bubble");
+        options.addArguments("--disable-features=PasswordLeakDetection");
+
+        Map<String, Object> prefs = new HashMap<>();
+        prefs.put("credentials_enable_service", false);
+        prefs.put("profile.password_manager_enabled", false);
+        prefs.put("profile.password_manager_leak_detection", false);
+        options.setExperimentalOption("prefs", prefs);
+
 
         WebDriver chromeDriver = new ChromeDriver(options);
         driver.set(chromeDriver);

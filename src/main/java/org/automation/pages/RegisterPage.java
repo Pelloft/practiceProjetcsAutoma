@@ -46,11 +46,11 @@ public class RegisterPage extends BasePage {
     private WebElement btnRegister;
 
     // ── Mensaje de éxito o error tras el registro
-    @FindBy(css = "#rightPanel p")
-    private WebElement resultMessage;
+    @FindBy(css = "#rightPanel .title")
+    private WebElement resultTitle;
 
-    @FindBy(css = ".title")
-    private WebElement pageTitle;
+    @FindBy(xpath = "//div[@id='rightPanel']/p[not(@class)]")
+    private WebElement resultMessage;
 
     public RegisterPage() {
         super();
@@ -78,7 +78,12 @@ public class RegisterPage extends BasePage {
     }
 
     public void clickRegistrar() {
+
         click(btnRegister);
+    }
+
+    public String obtenerTituloResultado() {
+        return getText(resultTitle);
     }
 
     public String obtenerMensajeResultado() {
@@ -86,6 +91,6 @@ public class RegisterPage extends BasePage {
     }
 
     public String obtenerTituloPagina() {
-        return getText(pageTitle);
+        return getText(resultMessage);
     }
 }
