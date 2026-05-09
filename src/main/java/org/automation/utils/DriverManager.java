@@ -33,7 +33,7 @@ public class DriverManager {
         WebDriverManager.chromedriver().setup();
 
         ChromeOptions options = new ChromeOptions();
-        options.addArguments("--start-maximized");        // Pantalla completa
+        //options.addArguments("--start-maximized");        // Pantalla completa
         options.addArguments("--disable-notifications");  // Sin popups de notificaciones
         options.addArguments("--remote-allow-origins=*"); // Evita errores de CORS en Chrome
         options.addArguments("--no-default-browser-check");

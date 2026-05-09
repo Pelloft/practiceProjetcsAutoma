@@ -10,7 +10,7 @@
   <packaging>jar</packaging>
 
   <name>selenium-framework</name>
-  <url>http://maven.apache.org</url>
+  <url>https://maven.apache.org</url>
 
   <properties>
     <maven.compiler.source>17</maven.compiler.source>
@@ -28,8 +28,7 @@
   <dependencies>
 
     <!--  1. Selenium WebDriver
-             Motor principal que controla el navegador.
-             selenium-java incluye soporte para Chrome, Firefox, Edge. -->
+             Motor principal que controla el navegador. Selenium-java incluye soporte para Chrome, Firefox, Edge. -->
     <dependency>
       <groupId>org.seleniumhq.selenium</groupId>
       <artifactId>selenium-java</artifactId>
@@ -46,7 +45,7 @@
     </dependency>
 
     <!-- 3. Cucumber Java
-         Interpreta los archivos .feature escritos en Gherkin
+         Interpreta los archivos (.feature) escritos en Gherkin
          y los conecta con tus Step Definitions en Java. -->
     <dependency>
       <groupId>io.cucumber</groupId>
@@ -54,7 +53,7 @@
       <version>${cucumber.version}</version>
     </dependency>
 
-    <!-- 3b. Cucumber Picocontainer
+    <!-- 3b. Cucumber Pico-container
          Contenedor de inyección de dependencias para Cucumber
          Permite que los Steps compartan estado entre ellos. -->
     <dependency>

@@ -1,14 +1,26 @@
 package org.automation.pages;
 
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
+import org.openqa.selenium.support.ui.ExpectedConditions;
 
 public class RegisterPage extends BasePage {
 
     private static final String URL =
             "https://parabank.parasoft.com/parabank/register.htm";
 
-    // ── Campos del formulario de registro
+    private static final By RESULT_MESSAGE =
+            By.xpath("//*[@id='rightPanel']/p[not(@class)]");
+
+    private static final By PAGE_TITLE =
+            By.cssSelector(".title");
+
+    private static final By BTN_REGISTER =
+            By.cssSelector("input[value='Register']");
+
+
+    //Campos del formulario de registro
     @FindBy(id = "customer.firstName")
     private WebElement inputFirstName;
 
@@ -42,23 +54,13 @@ public class RegisterPage extends BasePage {
     @FindBy(id = "repeatedPassword")
     private WebElement inputConfirmPassword;
 
-    @FindBy(css = "input[value='Register']")
-    private WebElement btnRegister;
-
-    // ── Mensaje de éxito o error tras el registro
-    @FindBy(css = "#rightPanel .title")
-    private WebElement resultTitle;
-
-    @FindBy(xpath = "//div[@id='rightPanel']/p[not(@class)]")
-    private WebElement resultMessage;
-
     public RegisterPage() {
         super();
         navigateTo(URL);
     }
 
-    // ── Llena todos los campos del formulario de una sola vez.
-    //    Recibe los datos desde el Step Definition (tabla Gherkin).
+    // Llena todos los campos del formulario de una sola vez.
+    // Recibe los datos desde el Step Definition (tabla Gherkin).
     public void completarFormulario(String firstName, String lastName,
                                     String address,   String city,
                                     String state,     String zipCode,
@@ -79,18 +81,39 @@ public class RegisterPage extends BasePage {
 
     public void clickRegistrar() {
 
-        click(btnRegister);
-    }
-
-    public String obtenerTituloResultado() {
-        return getText(resultTitle);
+        WebElement btnRegister = waitForElement(BTN_REGISTER);
+        btnRegister.click();
     }
 
     public String obtenerMensajeResultado() {
-        return getText(resultMessage);
+
+        WebElement mensaje = wait.until(
+                ExpectedConditions.presenceOfElementLocated(RESULT_MESSAGE)
+        );
+        return mensaje.getText();
     }
 
+
+
     public String obtenerTituloPagina() {
-        return getText(resultMessage);
+
+        WebElement titulo = wait.until(
+                ExpectedConditions.presenceOfElementLocated(PAGE_TITLE)
+        );
+        return titulo.getText();
     }
+
+    // Imprime el HTML de #rightPanel para diagnóstico.
+    //    Útil cuando el localizador no encuentra el elemento esperado.
+    public void imprimirHtmlResultado() {
+        try {
+            WebElement panel = driver.findElement(By.id("rightPanel"));
+            System.out.println("=== HTML rightPanel ===");
+            System.out.println(panel.getAttribute("innerHTML"));
+            System.out.println("======================");
+        } catch (Exception e) {
+            System.out.println("No se encontró #rightPanel: " + e.getMessage());
+        }
+    }
+
 }

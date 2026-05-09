@@ -20,14 +20,14 @@ import static io.cucumber.junit.platform.engine.Constants.*;
 @ConfigurationParameter(
         key   = PLUGIN_PROPERTY_NAME,
         // pretty: muestra los pasos en consola con formato legible
-        // html:   genera un reporte HTML en target/cucumber-reports
+        // html: genera un reporte HTML en target/cucumber-reports
         value = "pretty, html:target/cucumber-reports/report.html"
 )
 @ConfigurationParameter(
         key   = FILTER_TAGS_PROPERTY_NAME,
         // Ejecuta solo los escenarios marcados con @smoke
         // Cambia a "@parabank" para ejecutar todos
-        value = "@smoke"
+        value = "@parabank"
 )
 public class TestRunner {
 
