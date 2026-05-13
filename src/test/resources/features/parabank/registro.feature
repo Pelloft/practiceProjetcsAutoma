@@ -8,12 +8,12 @@ Para poder acceder a los servicios bancarios
 Background:
 Given el usuario está en la página de inicio de ParaBank
 
-@parabank
+@smoke
 Scenario: Registro exitoso con datos válidos
 When el usuario hace click en "Register"
 And completa el formulario de registro con los siguientes datos:
 | firstName | lastName | address     | city      | state | zipCode | phone      | ssn        | username    | password    |
-| John      | Doe      | 123 Main St | Guayaquil | EC    | 090101  | 0991234567 | 123-45-678 | johndoe2025 | Password123 |
+| Antho      | Ullon      | 123 Main St | Guayaquil | EC    | 090101  | 0991234567 | 123-45-678 | aUllon2025 | Test@123 |
 And hace click en el botón "Register"
 Then el sistema muestra el mensaje "Your account was created successfully. You are now logged in."
 

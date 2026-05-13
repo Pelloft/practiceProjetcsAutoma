@@ -1,4 +1,4 @@
-package org.automation.pages;
+package org.automation.pages.parabank;
 
 import org.automation.utils.DriverManager;
 import org.openqa.selenium.By;

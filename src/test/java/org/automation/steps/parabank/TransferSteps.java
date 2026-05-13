@@ -1,9 +1,8 @@
-package org.automation.steps;
+package org.automation.steps.parabank;
 
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
-import org.automation.pages.TransferPage;
 import org.junit.jupiter.api.Assertions;
 
 public class TransferSteps {

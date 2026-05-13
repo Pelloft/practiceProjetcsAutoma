@@ -1,9 +1,8 @@
-package org.automation.steps;
+package org.automation.steps.parabank;
 
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Then;
 import io.cucumber.datatable.DataTable;
-import org.automation.pages.RegisterPage;
 import org.junit.jupiter.api.Assertions;
 
 import java.util.Map;

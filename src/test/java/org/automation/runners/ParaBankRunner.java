@@ -27,8 +27,8 @@ import static io.cucumber.junit.platform.engine.Constants.*;
         key   = FILTER_TAGS_PROPERTY_NAME,
         // Ejecuta solo los escenarios marcados con @smoke
         // Cambia a "@parabank" para ejecutar todos
-        value = "@parabank"
+        value = "@smoke"
 )
-public class TestRunner {
+public class ParaBankRunner {
 
 }

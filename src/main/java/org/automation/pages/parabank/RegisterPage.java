@@ -1,4 +1,4 @@
-package org.automation.pages;
+package org.automation.pages.parabank;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
@@ -10,17 +10,21 @@ public class RegisterPage extends BasePage {
     private static final String URL =
             "https://parabank.parasoft.com/parabank/register.htm";
 
+    //  Selectores dinámicos para elementos post-navegación.
+    //  Se buscan en el momento exacto que se necesitan, evitando StaleElementReferenceException.
     private static final By RESULT_MESSAGE =
-            By.xpath("//*[@id='rightPanel']/p[not(@class)]");
+            By.cssSelector("#rightPanel p");
+
+    private static final By RESULT_TITLE =
+            By.cssSelector("#rightPanel h1.title");
 
     private static final By PAGE_TITLE =
-            By.cssSelector(".title");
+            By.cssSelector("h1.title");
 
     private static final By BTN_REGISTER =
             By.cssSelector("input[value='Register']");
 
-
-    //Campos del formulario de registro
+    //  Campos del formulario con @FindBy — seguros antes de navegación
     @FindBy(id = "customer.firstName")
     private WebElement inputFirstName;
 
@@ -59,8 +63,6 @@ public class RegisterPage extends BasePage {
         navigateTo(URL);
     }
 
-    // Llena todos los campos del formulario de una sola vez.
-    // Recibe los datos desde el Step Definition (tabla Gherkin).
     public void completarFormulario(String firstName, String lastName,
                                     String address,   String city,
                                     String state,     String zipCode,
@@ -80,40 +82,40 @@ public class RegisterPage extends BasePage {
     }
 
     public void clickRegistrar() {
-
-        WebElement btnRegister = waitForElement(BTN_REGISTER);
-        btnRegister.click();
+        WebElement btn = waitForElement(BTN_REGISTER);
+        btn.click();
     }
 
     public String obtenerMensajeResultado() {
+        // Espera que el título contenga "Welcome" — indica navegación exitosa.
+        //    textMatches acepta regex, útil porque el título incluye
+        //    el username dinámico: "Welcome user_20250408_143022"
+        wait.until(ExpectedConditions.textMatches(
+                By.cssSelector("#rightPanel h1.title"),
+                java.util.regex.Pattern.compile(".*Welcome.*")
+        ));
 
         WebElement mensaje = wait.until(
-                ExpectedConditions.presenceOfElementLocated(RESULT_MESSAGE)
+                ExpectedConditions.visibilityOfElementLocated(
+                        By.cssSelector("#rightPanel p")
+                )
         );
         return mensaje.getText();
     }
 
-
-
-    public String obtenerTituloPagina() {
-
+    // Devuelve "Welcome [String]" tras registro exitoso
+    public String obtenerTituloResultado() {
         WebElement titulo = wait.until(
-                ExpectedConditions.presenceOfElementLocated(PAGE_TITLE)
+                ExpectedConditions.visibilityOfElementLocated(RESULT_TITLE)
         );
         return titulo.getText();
     }
 
-    // Imprime el HTML de #rightPanel para diagnóstico.
-    //    Útil cuando el localizador no encuentra el elemento esperado.
-    public void imprimirHtmlResultado() {
-        try {
-            WebElement panel = driver.findElement(By.id("rightPanel"));
-            System.out.println("=== HTML rightPanel ===");
-            System.out.println(panel.getAttribute("innerHTML"));
-            System.out.println("======================");
-        } catch (Exception e) {
-            System.out.println("No se encontró #rightPanel: " + e.getMessage());
-        }
+    public String obtenerTituloPagina() {
+        WebElement titulo = wait.until(
+                ExpectedConditions.visibilityOfElementLocated(PAGE_TITLE)
+        );
+        return titulo.getText();
     }
 
 }

@@ -1,4 +1,4 @@
-package org.automation.pages;
+package org.automation.pages.parabank;
 
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
