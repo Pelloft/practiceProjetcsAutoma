@@ -10,7 +10,7 @@ import static io.cucumber.junit.platform.engine.Constants.*;
 @Suite
 @IncludeEngines("cucumber")
 
-// Le dice a Cucumber dónde buscar los archivos .feature
+// Le dice a Cucumber dónde buscar los archivos (.feature)
 @SelectClasspathResource("features/parabank")
 @ConfigurationParameter(
         key   = GLUE_PROPERTY_NAME,

@@ -3,15 +3,12 @@ package org.automation.steps.parabank;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
+import org.automation.steps.CommonSteps;
 import org.junit.jupiter.api.Assertions;
 
 public class TransferSteps {
 
     private final CommonSteps commonSteps;
-
-    public TransferSteps() {
-        this(new CommonSteps());
-    }
 
     public TransferSteps(CommonSteps commonSteps) {
         this.commonSteps = commonSteps;
@@ -32,15 +29,7 @@ public class TransferSteps {
         commonSteps.getTransferPage().seleccionarCuentaDestino();
     }
 
-    @Then("el sistema muestra el mensaje \"Transfer Complete!\"")
-    public void verificarTransferenciaCompleta() {
-        String titulo = commonSteps.getTransferPage().obtenerTituloResultado();
-        Assertions.assertEquals(
-                "Transfer Complete!",
-                titulo,
-                "Se esperaba confirmación de transferencia pero se obtuvo: " + titulo
-        );
-    }
+
 
     @And("confirma que {string} fue transferido exitosamente")
     public void confirmaTransferencia(String monto) {

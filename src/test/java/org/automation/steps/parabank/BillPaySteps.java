@@ -4,6 +4,7 @@ import io.cucumber.datatable.DataTable;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
+import org.automation.steps.CommonSteps;
 import org.junit.jupiter.api.Assertions;
 
 import java.util.Map;
@@ -11,10 +12,6 @@ import java.util.Map;
 public class BillPaySteps {
 
     private final CommonSteps commonSteps;
-
-    public BillPaySteps() {
-        this(new CommonSteps());
-    }
 
     public BillPaySteps(CommonSteps commonSteps) {
         this.commonSteps = commonSteps;
@@ -44,16 +41,6 @@ public class BillPaySteps {
     @When("el usuario hace click en {string} sin completar el formulario")
     public void clickSinCompletarFormulario(String boton) {
         commonSteps.getBillPayPage().clickEnviarPago();
-    }
-
-    @Then("el sistema muestra el mensaje \"Bill Payment Complete\"")
-    public void verificarPagoCompleto() {
-        String titulo = commonSteps.getBillPayPage().obtenerTituloResultado();
-        Assertions.assertEquals(
-                "Bill Payment Complete",
-                titulo,
-                "Se esperaba confirmación de pago pero se obtuvo: " + titulo
-        );
     }
 
     @And("confirma el pago de {string} a {string}")

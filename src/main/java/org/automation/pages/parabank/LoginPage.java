@@ -1,41 +1,29 @@
 package org.automation.pages.parabank;
 
-import org.openqa.selenium.WebElement;
-import org.openqa.selenium.support.FindBy;
+import org.automation.pages.base.BasePage;
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.support.PageFactory;
 
 public class LoginPage extends BasePage {
 
-
     private static final String URL = "https://parabank.parasoft.com/parabank/index.htm";
 
-    /* @FindBy le dice a PageFactory cómo localizar cada elemento.
-       name="username" busca el atributo name="username" en el HTML.*/
-    @FindBy(name = "username")
-    private WebElement inputUsername;
+    // Locators usando By en lugar de @FindBy (más flexible)
+    private final By inputUsername = By.name("username");
+    private final By inputPassword = By.name("password");
+    private final By btnLogin = By.cssSelector("input[value='Log In']");
+    private final By errorMessage = By.cssSelector(".error");
+    private final By btnLogOut = By.linkText("Log Out");
+    private final By pageTitle = By.cssSelector(".title");
 
-    @FindBy(name = "password")
-    private WebElement inputPassword;
-
-    @FindBy(css = "input[value='Log In']")
-    private WebElement btnLogin;
-
-    @FindBy(css = ".error")
-    private WebElement errorMessage;
-
-    @FindBy(linkText = "Log Out")
-    private WebElement btnLogOut;
-
-    @FindBy(css = ".title")
-    private WebElement pageTitle;
-
-    // Navega a la página de inicio al instanciar la clase.
-    public LoginPage() {
-        super();
+    // Constructor que recibe WebDriver
+    public LoginPage(WebDriver driver) {
+        super(driver);
         navigateTo(URL);
     }
 
-    // Métodos de acción — cada metodo representa UNA acción del usuario.
-
+    // Métodos de acción
     public void ingresarUsername(String username) {
         type(inputUsername, username);
     }
@@ -52,17 +40,13 @@ public class LoginPage extends BasePage {
         click(btnLogOut);
     }
 
-    /* Metodo compuesto — agrupa acciones relacionadas.
-       El Step Definition lo llamará con una sola línea.*/
     public void login(String username, String password) {
         ingresarUsername(username);
         ingresarPassword(password);
         clickLogin();
     }
 
-    /*Métodos de verificación — devuelven datos para que
-      el Step Definition valide con assertions.*/
-
+    // Métodos de verificación
     public String obtenerMensajeError() {
         return getText(errorMessage);
     }
@@ -77,5 +61,9 @@ public class LoginPage extends BasePage {
 
     public boolean loginButtonVisible() {
         return isElementDisplayed(btnLogin);
+    }
+
+    private void navigateTo(String url) {
+        driver.get(url);
     }
 }
